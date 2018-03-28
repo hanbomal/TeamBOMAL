@@ -11,5 +11,5 @@
 	<p>등록이 완료되었습니다.</p>
 <p><button onclick="document.getElementById('message').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; location.reload(true);" class="w3-button">닫기</button> </p>
 </div>
-    
+      
 </div></div>
