@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="relation">
+	<insert id="requestJoin" parameterType="hashmap">
+		insert into studyrelation
+		values(#{memberid},
+		#{studyName},0,#{nickname},sysdate,sysdate,
+		#{position},#{leader},1)
+	</insert>
+
+	<delete id="cancelJoin" parameterType="hashmap">
+		delete from studyrelation
+		where memberId=#{memberId}
+		and studyName=#{studyName}
+	</delete>
+
+
+</mapper>

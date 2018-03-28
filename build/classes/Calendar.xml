@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cal.mybatis">
+
+		<select id="getCalendarList" resultType="Schedule" parameterType="hashmap">
+		select * from calendar where studynum=#{studynum}
+	</select>
+	
+	<update id="updateCalendar" parameterType="Schedule">	
+		update calendar set title=#{title}, place=#{place}, description=#{description},
+		startdate=#{startdate}, enddate=#{enddate} where num=#{num}
+	</update>
+	<insert id="addCalendar" parameterType="Schedule">
+		insert into calendar values(#{num},#{studynum},#{title},#{place},#{description},
+		#{startdate},#{enddate},sysdate)
+	</insert>
+	<delete id="deleteCalendar" parameterType="hashmap">
+	delete from calendar where num=#{num}
+	</delete>
+	<select id="getNextNumber" resultType="int" >
+		select calendarSer.nextval from dual
+	</select>
+	<select id="getCalendar" resultType="Schedule" parameterType="hashmap">
+	select * from calendar where num=#{num}
+	</select>
+	
+
+
+</mapper>
