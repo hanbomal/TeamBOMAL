@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%	String name = "aaa";
 	
@@ -28,14 +28,14 @@
 </style>
 <body>
 
- <!--  ´ëÈ­³»¿ë div  -->
+ <!--  ëŒ€í™”ë‚´ìš© div  -->
   <div class="w3-container " style="margin:0; padding:0;">
       <div class="w3-container" style="height:500px; overflow:auto; background: rgba(241, 241, 241, 0.75);" id="messageWindow">
         
      <br>
       </div>
       
-<!-- Àü¼ÛÃ¢ºÎºÐ   -->    
+<!-- ì „ì†¡ì°½ë¶€ë¶„   -->    
       <div class="w3-container w3-white w3-padding">
      
       <div class="w3-panel w3-round-large w3-border w3-padding w3-margin-left" >
@@ -44,13 +44,13 @@
   
   <textarea  id="inputMessage" class="w3-input"  style="border:0; display: inline-block;" 
   onkeydown="if(event.keyCode==13){send();}"></textarea> </td><td>
-  	<button class="w3-button  w3-teal" type="submit" onclick="send()">Àü¼Û</button></td>
+  	<button class="w3-button  w3-teal" type="submit" onclick="send()">ì „ì†¡</button></td>
   </table>
    </div>
    
   </div>
   </div>
-  <!-- Àü¼ÛÃ¢ºÎºÐ ³¡ -->
+  <!-- ì „ì†¡ì°½ë¶€ë¶„ ë -->
 
 </body>
 <script type="text/javascript">
@@ -108,7 +108,7 @@
          textarea.scrollTop=textarea.scrollHeight;
          }
     function onOpen(event) {
-       textarea.innerHTML += "¿¬°á ¼º°ø<br>";
+       textarea.innerHTML += "ì—°ê²° ì„±ê³µ<br>";
        
          
 	for(var i=0;i<chatdata.length;i++){
@@ -158,14 +158,14 @@
          if ( nowHour <12   ) {
         
 
-           nowText='¿ÀÀü ' + nowHour + ':' + nowMt;
+           nowText='ì˜¤ì „ ' + nowHour + ':' + nowMt;
 
          } else if (  nowHour >= 12   ) {
 		
         	 if(nowHour>=13){
         		 nowHour=nowHour-12;
         	 }
-        	 nowText='¿ÀÈÄ ' + nowHour + ':' + nowMt;
+        	 nowText='ì˜¤í›„ ' + nowHour + ':' + nowMt;
         	 
          	}
         
