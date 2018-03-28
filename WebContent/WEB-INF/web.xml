@@ -21,7 +21,8 @@ id="WebApp_ID" version="3.1">
   
   <jsp-config>
     <jsp-property-group>
-      <url-pattern>/WEB-INF/view/*</url-pattern>
+      <url-pattern>/WEB-INF/view/member/*</url-pattern>
+      <url-pattern>/WEB-INF/view/page/*</url-pattern>
       <include-prelude>/WEB-INF/common/header.jsp</include-prelude>
       <include-coda>/WEB-INF/common/footer.jsp</include-coda>
     </jsp-property-group>
