@@ -70,4 +70,53 @@ public class ChatController {
 	}
 	
 
+	@RequestMapping("/test")
+	public String test(HttpServletRequest req, HttpServletResponse res) throws Throwable {
+		 String cid="1";
+		 String logPath = "C:\\save\\"+cid+".txt"; 
+		
+	     Path path = Paths.get(logPath);
+	    
+	     Charset cs = StandardCharsets.UTF_8;
+	  
+	     List<String> list = new ArrayList<String>();
+	     List<Chatdata> chatd=new ArrayList<>();
+	     
+	     try{
+	         list = Files.readAllLines(path,cs);
+	     }catch(IOException e){
+	         e.printStackTrace();
+	     }
+	     for(String readLine : list){
+	    	 readLine.trim();
+	        /* System.out.println(readLine);*/
+	         
+	         String[] tmp=readLine.substring(readLine.indexOf("[")+1, readLine.lastIndexOf("]")).split("\\]"+" "+"\\[");
+	        List tmplist=new ArrayList();
+	        for(int i=0;i<tmp.length;i++) {
+	        	tmplist.add(tmp[i]);
+	        }
+	        if(tmp.length==2) {
+	        	tmplist.add("");
+	        }
+	         
+	         Chatdata cd=new Chatdata();
+	         cd.setName((String)tmplist.get(0));
+	         cd.setDate((String)tmplist.get(1));
+	         cd.setContent((String)tmplist.get(2));
+	      
+	         chatd.add(cd);
+	         
+	     }
+
+	    
+			 
+			  req.setAttribute("chatdata", chatd);
+			  
+		 
+			  
+		return "chat/websocketGroup2";
+
+	}
+	
 }

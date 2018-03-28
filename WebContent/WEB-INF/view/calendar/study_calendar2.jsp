@@ -72,8 +72,19 @@ jQuery(document).ready(function(){
          , defaultDate : new Date()
          , nowIndicator: true
          ,now: new Date()
+         , height: 'parent'
         , locale : 'ko'
         , editable : true
+        ,eventResize: function(event, delta, revertFunc) {
+
+
+            if (!confirm(event.title+"의 종료일을 "+event.end.format()+"로 변경합니다.")) {
+              revertFunc();
+            }else{
+            	  
+        		  var data='title='+event.title+'&place='+event.place+'&studynum='+event.studynum+'&id='+event.id+'&description='+event.description+"&startdate="+event.start.format()+"&enddate="+event.end.format();
+        		  update(data);};
+            }
         , eventLimit : true
         // THIS KEY WON'T WORK IN PRODUCTION!!!
         // To make your own Google API key, follow the directions here:
@@ -103,7 +114,7 @@ jQuery(document).ready(function(){
 
         ,eventDrop: function(event, delta, revertFunc) {
            
-            if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다")) {	
+            if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다.")) {	
                  revertFunc(); 
             }else{
   
