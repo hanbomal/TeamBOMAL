@@ -22,7 +22,7 @@ public class ChatController {
 
 	@RequestMapping("/intro")
 	public String intro(HttpServletRequest req, HttpServletResponse res) throws Throwable {
-		String cid="1";
+		 String cid="1";
 		 String logPath = "C:\\save\\"+cid+".txt"; 
 		
 	     Path path = Paths.get(logPath);
@@ -40,13 +40,21 @@ public class ChatController {
 	     for(String readLine : list){
 	    	 readLine.trim();
 	        /* System.out.println(readLine);*/
+	         
 	         String[] tmp=readLine.substring(readLine.indexOf("[")+1, readLine.lastIndexOf("]")).split("\\]"+" "+"\\[");
+	        List tmplist=new ArrayList();
+	        for(int i=0;i<tmp.length;i++) {
+	        	tmplist.add(tmp[i]);
+	        }
+	        if(tmp.length==2) {
+	        	tmplist.add("");
+	        }
 	         
 	         Chatdata cd=new Chatdata();
-	         cd.setName(tmp[0]);
-	         cd.setDate(tmp[1]);
-	         cd.setContent(tmp[2]);
-	        
+	         cd.setName((String)tmplist.get(0));
+	         cd.setDate((String)tmplist.get(1));
+	         cd.setContent((String)tmplist.get(2));
+	      
 	         chatd.add(cd);
 	         
 	     }
@@ -54,6 +62,8 @@ public class ChatController {
 	    
 			 
 			  req.setAttribute("chatdata", chatd);
+			  
+		 
 			  
 		return "chat/websocketGroup";
 
