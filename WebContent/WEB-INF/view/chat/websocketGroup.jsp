@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%	String name = "aaa";
 	
@@ -7,6 +7,7 @@
 	
 		%>
 <!DOCTYPE html>
+<!--  -->
 <html>
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -28,14 +29,13 @@
 </style>
 <body>
 
- <!--  ëŒ€í™”ë‚´ìš© div  -->
+ <!--  ´ëÈ­³»¿ë div  -->
   <div class="w3-container " style="margin:0; padding:0;">
-      <div class="w3-container" style="height:500px; overflow:auto; background: rgba(241, 241, 241, 0.75);" id="messageWindow">
-        
-     <br>
+      <div class="w3-container w3-padding" style="height:500px; overflow:auto; background: rgba(241, 241, 241, 0.75);" id="messageWindow">
+   
       </div>
       
-<!-- ì „ì†¡ì°½ë¶€ë¶„   -->    
+<!-- Àü¼ÛÃ¢ºÎºÐ   -->    
       <div class="w3-container w3-white w3-padding">
      
       <div class="w3-panel w3-round-large w3-border w3-padding w3-margin-left" >
@@ -43,14 +43,14 @@
   <table style="width: 100%;"><tr><td style="width: 90%;">
   
   <textarea  id="inputMessage" class="w3-input"  style="border:0; display: inline-block;" 
-  onkeydown="if(event.keyCode==13){send();}"></textarea> </td><td>
-  	<button class="w3-button  w3-teal" type="submit" onclick="send()">ì „ì†¡</button></td>
+  onkeydown="if(event.keyCode==16){send();}"></textarea> </td><td>
+  	<button class="w3-button  w3-teal" type="submit" onclick="send()">Àü¼Û</button></td>
   </table>
    </div>
    
   </div>
   </div>
-  <!-- ì „ì†¡ì°½ë¶€ë¶„ ë -->
+  <!-- Àü¼ÛÃ¢ºÎºÐ ³¡ -->
 
 </body>
 <script type="text/javascript">
@@ -108,7 +108,7 @@
          textarea.scrollTop=textarea.scrollHeight;
          }
     function onOpen(event) {
-       textarea.innerHTML += "ì—°ê²° ì„±ê³µ<br>";
+      /*  textarea.innerHTML += "¿¬°á ¼º°ø<br>"; */
        
          
 	for(var i=0;i<chatdata.length;i++){
@@ -158,14 +158,14 @@
          if ( nowHour <12   ) {
         
 
-           nowText='ì˜¤ì „ ' + nowHour + ':' + nowMt;
+           nowText='¿ÀÀü ' + nowHour + ':' + nowMt;
 
          } else if (  nowHour >= 12   ) {
 		
         	 if(nowHour>=13){
         		 nowHour=nowHour-12;
         	 }
-        	 nowText='ì˜¤í›„ ' + nowHour + ':' + nowMt;
+        	 nowText='¿ÀÈÄ ' + nowHour + ':' + nowMt;
         	 
          	}
         
