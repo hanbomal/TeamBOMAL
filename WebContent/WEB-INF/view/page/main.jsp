@@ -5,24 +5,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
 <div class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-	<br> <br> <br>
+	<br><br><br><br><br><br>
 	<!--개설된 방  검색 결과 추가 -->
 	<div class="w3-cell-row">
 		<div class="w3-third"></div>
-		<div class="w3-container w3-cell" style="width: 60%">
+		<div class="w3-container w3-cell" style="width: 40%">
 		 <c:forEach var="room" items="${group}">
-				<ul class="w3-ul w3-card-4 w3-light-grey">
+				<ul class="w3-ul w3-card-4 w3-light-grey w3-round">
 					<li class="w3-bar">
 						<!--그룹 프로필  --> 
 						<c:if test="${room.study_pro==null }">
 							<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
-								class="w3-bar-item w3-circle w3-hide-small" style="width: 85px">
+								class="w3-bar-item w3-hide-small" style="width: 85px;border-radius: 30%">
 						</c:if> 
 						
 						<c:if test="${room.study_pro!=null }">
 							<img
 								src="<%=request.getContextPath()%>/fileSave/${room.study_pro}"
-								class="w3-bar-item w3-circle w3-hide-small" style="width: 85px">
+								class="w3-bar-item w3-hide-small" style="width: 85px;border-radius: 30%">
 						</c:if>
 
 						<div class="w3-bar-item">
