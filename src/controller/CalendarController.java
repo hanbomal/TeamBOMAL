@@ -70,7 +70,7 @@ public class CalendarController {
     	cpro.addCalendar(calendar);
     	System.out.println(calendar);
     	
-        
+    	
 
 		return "calendar/addComp";
 	}
