@@ -1,22 +1,19 @@
 package controller;
 
-import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URLEncoder;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.RelationDAO;
 import dao.StudyDAO;
@@ -91,58 +88,43 @@ public class PageController {
 		}
 		return null;
 	}
-
+	
+	
 	@RequestMapping("/makingPro")
-	public String makingPro(MultipartHttpServletRequest req, StudyVO study, Model model) throws Throwable {
-		String realFolder = "";
-		String encType = "utf-8";
-		int maxSize = 10 * 1024 * 1024;
-		ServletContext context = req.getServletContext();
-		realFolder = context.getRealPath("fileSave");
-		MultipartRequest multi = null;
-		multi = new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-		Enumeration files = multi.getFileNames();
-		String[] filename = new String[2];
-		File[] file = new File[2];
-		int index = 0;
-		while (files.hasMoreElements()) {
-			String name = (String) files.nextElement();
-			System.out.println(index + ";" + name);
-
-			filename[index] = multi.getFilesystemName(name);
-			System.out.println(multi.getContentType(name));
-			file[index] = multi.getFile(name);
-			index++;
-		}
-		
-		study.setStudyName(multi.getParameter("studyName"));
-		study.setPeopleCount(1);
-		study.setLeader(getSessionId(req));
-		study.setStudy_intro(multi.getParameter("study_intro"));
-
-		if (file[0] != null) {
-			study.setStudy_pro(filename[0]);
-			study.setProSize((int) file[0].length());
+	public String makingPro(MultipartHttpServletRequest req,  
+			String studyName, String study_intro) throws Throwable {
+		StudyVO  study = new StudyVO();
+		MultipartFile multi1 = req.getFile("study_pro");
+		MultipartFile multi2 = req.getFile("study_back");
+		String pro_name = multi1.getOriginalFilename();
+		String back_name = multi2.getOriginalFilename();
+		if (pro_name != null && !pro_name.equals("")) {
+			String uploadPath = req.getRealPath("/") + "fileSave";
+			FileCopyUtils.copy(multi1.getInputStream(),
+					new FileOutputStream(uploadPath + "/" + multi1.getOriginalFilename()));
+			study.setStudy_pro(pro_name);
+			study.setProSize((int) multi1.getSize());
 		} else {
 			study.setStudy_pro("");
 			study.setProSize(0);
 		}
-		
-		
-		if (file[1] != null) {
-			study.setStudy_back(filename[1]);
-			study.setBackSize((int) file[1].length());
+		if (back_name != null && !back_name.equals("")) {
+			String uploadPath = req.getRealPath("/") + "fileSave";
+			FileCopyUtils.copy(multi2.getInputStream(),
+					new FileOutputStream(uploadPath + "/" + multi2.getOriginalFilename()));
+			study.setStudy_back(back_name);
+			study.setBackSize((int) multi2.getSize());
 		} else {
 			study.setStudy_back("");
 			study.setBackSize(0);
 		}
-
-		// filename =0이 background
-		// =1 은 profile
-
+		study.setStudyName(studyName);
+		study.setStudy_intro(study_intro);
+		study.setPeopleCount(1);
+		study.setLeader(getSessionId(req));
 		StudyDAO dbPro = StudyDAO.getInstance();
+		System.out.println(study);
 		dbPro.makingStudy(study);
-		
 		return "redirect:/page/main";
 	}
 
