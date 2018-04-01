@@ -22,11 +22,11 @@ public class StudyDAO extends MybatisConnector{
     private final String namespace="study";
     SqlSession sqlSession;
     
-	public void makingStudy(StudyVO room) {
+	public void makingStudy(StudyVO study) {
 		sqlSession=sqlSession();
 		int num=sqlSession.selectOne(namespace+".getNextNum");
-		room.setNum(num);
-		sqlSession.insert(namespace+".makingStudy",room);
+		study.setNum(num);
+		sqlSession.insert(namespace+".makingStudy",study);
 		sqlSession.commit();
 		sqlSession.close();
 	}

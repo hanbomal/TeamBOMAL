@@ -34,15 +34,16 @@ body, html {
 
 .w3-bar .w3-button {
 	padding: 16px;
+}
 
-}
 .autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9; 
+	/*when hovering an item:*/
+	background-color: #e9e9e9;
 }
+
 .autocomplete-items div {
-  font-size: 17px;
-  padding-left: 10px;
+	font-size: 17px;
+	padding-left: 10px;
 }
 /* style="overflow:hidden;" */
 </style>
@@ -53,40 +54,57 @@ body, html {
 	<div class="w3-top">
 		<div class="w3-bar w3-white w3-card" id="myNavbar">
 			<a href="main" class="w3-bar-item w3-button w3-wide">HANBOMAL</a>
-			
+
 			<!-- autoComplete Form-->
-			<div class="w3-left" style="margin-top:11px;" >
-				
+			<div class="w3-left" style="margin-top: 11px;">
+
 				<form action="main" autocomplete="off" method="post">
-				<input type="text" style="outline:none;width:300px" class="w3-round"
-				placeholder="Search..." name="studyName" id="myInput">
-				<button type="submit" class="w3-button w3-blue w3-round" style="margin-left:-4px;padding:8px;margin-bottom:2px">
-					<i class="fa fa-search w3-large"></i>
-				</button> 
-				
+					<input type="text" style="outline: none; width: 300px"
+						class="w3-round" placeholder="Search..." name="studyName"
+						id="myInput">
+					<button type="submit" class="w3-button w3-blue w3-round"
+						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
+						<i class="fa fa-search w3-large"></i>
+					</button>
+
 				</form>
 			</div>
-			
-				<!-- Right-sided navbar links -->
-				<div class="w3-right w3-hide-small">
-					<a href="about" class="w3-bar-item w3-button">ABOUT</a> <a
-						href="javascript:void(0)" class="w3-bar-item w3-button"
-						onclick="document.getElementById('login').style.display='block'"><i
-						class="fa fa-user"></i> MYPAGE</a>
-					<div class="w3-dropdown-hover">
-						<button class="w3-button">
-							<i class="fa fa-th"></i> WORKSPACE
-						</button>
-						<div class="w3-dropdown-content w3-bar-block w3-border">
-							<a href="study_making" class="w3-bar-item w3-button">개설하기</a> <a
-								href="study_board" class="w3-bar-item w3-button">STUDY 1</a> <a
-								href="study_album" class="w3-bar-item w3-button">STUDY 2</a>
-								<a
-								href="test" class="w3-bar-item w3-button">TEST</a>
-						</div>
+
+			<!-- Right-sided navbar links -->
+			<div class="w3-right w3-hide-small">
+				<a href="about" class="w3-bar-item w3-button">ABOUT</a>
+
+				<div class="w3-dropdown-hover">
+					<button class="w3-button">
+						<i class="fa fa-globe"></i> NOTICE
+					</button>
+					<div class="w3-dropdown-content w3-bar-block w3-border">
+						<a href="RequestPage" class="w3-bar-item w3-button">REQUEST
+						<span class="w3-badge w3-small w3-blue">3</span>
+						</a> 
+						<a href="#" class="w3-bar-item w3-button">RESPONSE
+						<span class="w3-badge w3-small w3-blue">2</span>
+						</a>
 					</div>
 				</div>
-			
+
+				<a href="javascript:void(0)" class="w3-bar-item w3-button"
+					onclick="document.getElementById('login').style.display='block'"><i
+					class="fa fa-user"></i> MYPAGE</a>
+				<div class="w3-dropdown-hover">
+					<button class="w3-button">
+						<i class="fa fa-th"></i> WORKSPACE
+					</button>
+					<div class="w3-dropdown-content w3-bar-block w3-border">
+						<a href="study_making" class="w3-bar-item w3-button">개설하기</a> <a
+							href="study_board" class="w3-bar-item w3-button">STUDY 1</a> <a
+							href="study_album" class="w3-bar-item w3-button">STUDY 2</a> <a
+							href="test" class="w3-bar-item w3-button">TEST</a>
+					</div>
+				</div>
+
+			</div>
+
 			<!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
 			<a href="javascript:void(0)"
@@ -95,14 +113,11 @@ body, html {
 			</a>
 		</div>
 		<div class="w3-cell-row">
-		<div class="w3-cell w3-hide-small" style="width:150px">
-		</div>
-		<div id="aaa" 
-		class="w3-white w3-card"
-		style="width:300px;"></div>
+			<div class="w3-cell w3-hide-small" style="width: 150px"></div>
+			<div id="aaa" class="w3-white w3-card" style="width: 300px;"></div>
 		</div>
 	</div>
-  
+
 	<!-- Sidebar on small screens when clicking the menu icon -->
 	<nav
 		class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
@@ -135,11 +150,11 @@ body, html {
 
 			<form class="w3-container" method="post" action="../member/loginPro">
 				<div class="w3-section">
-					<label><b>ID</b></label> 
-					<input class="w3-input w3-border w3-margin-bottom" type="text"
+					<label><b>ID</b></label> <input
+						class="w3-input w3-border w3-margin-bottom" type="text"
 						style="display: block; width: 100%;" placeholder="아이디를 입력하세요."
-						name="memberid" required> <label><b>PASSWORD</b></label> 
-					<input class="w3-input w3-border" style="display: block; width: 100%;"
+						name="memberid" required> <label><b>PASSWORD</b></label> <input
+						class="w3-input w3-border" style="display: block; width: 100%;"
 						type="password" placeholder="비밀번호를 입력하세요." name="passwd" required>
 					<button class="w3-button w3-block w3-black w3-section w3-padding"
 						type="submit">로그인</button>
@@ -148,7 +163,7 @@ body, html {
 				</div>
 			</form>
 
-			<div class="w3-container w3-border-top w3-padding-16 w3-light-grey" >
+			<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
 				<button
 					onclick="document.getElementById('login').style.display='none'"
 					type="button" class="w3-button w3-black">취소</button>
@@ -160,7 +175,7 @@ body, html {
 		</div>
 	</div>
 
-	
+
 </body>
 
 <script>
