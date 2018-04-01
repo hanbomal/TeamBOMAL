@@ -5,59 +5,89 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
 <div class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-	<br><br><br><br><br><br>
+	<br><br><br><br>
 	<!--개설된 방  검색 결과 추가 -->
 	<div class="w3-cell-row">
 		<div class="w3-third"></div>
-		<div class="w3-container w3-cell" style="width: 40%">
+		<div class="w3-container w3-cell" style="width: 50%">
+		<c:if test="${group.size()!=null}">
+				<div class="w3-card-4 w3-light-grey w3-leftbar w3-border-grey" >
+				<font >&nbsp;검색결과: ${group.size()}</font>	
+			<!-- 
+				필터 넣어야되는데 귀찮다...
+			<select class="w3-right" onchange="window.location='mainPage?pageId='+this.value">
+  			  <option  value="">&nbsp;정열&nbsp;</option>
+			</select>
+				 -->
+				</div>
+		</c:if>		
 		 <c:forEach var="room" items="${group}">
-				<ul class="w3-ul w3-card-4 w3-light-grey w3-round">
-					<li class="w3-bar">
+				<div class="w3-card-4 w3-light-grey ">
+					<div class="w3-cell-row">
+						<div class="w3-cell w3-cell-middle w3-center" style="width:15%">
 						<!--그룹 프로필  --> 
 						<c:if test="${room.study_pro==null }">
 							<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
-								class="w3-bar-item w3-hide-small" style="width: 85px;border-radius: 30%">
+								class="w3-bar-item w3-hide-small" style="width: 90px;height:70px" >
 						</c:if> 
 						
 						<c:if test="${room.study_pro!=null }">
 							<img
 								src="<%=request.getContextPath()%>/fileSave/${room.study_pro}"
-								class="w3-bar-item w3-hide-small" style="width: 85px;border-radius: 30%">
+								class="w3-bar-item w3-hide-small" style="width: 90px;height:70px">
 						</c:if>
-
+						</div>
+						<div class="w3-cell w3-cell-middle w3-center" style="width:75%">
 						<div class="w3-bar-item">
-							<span class="w3-large">${room.studyName}</span><br> <span>
-								${room.study_intro }</span>
+							<span class="w3-large"><a href="#" onclick="studyIntro('${room.num}')">${room.studyName}</a>
+							</span>	<span>(멤버수: ${room.peopleCount})</span> 
+						
 						</div> 
-					
+						</div>
+						<div class="w3-cell w3-cell-middle w3-center w3-hide-small" style="width:20%;padding:10px">
 						<c:if test="${room.relation.status==null}">
-							<c:if test="${memberid!=null}">
-							<form class="w3-right" action="requestJoin" method="post">
+							<form action="requestJoin" method="post" >
 								<input type="hidden" name="reqNum" value="1" /> 
 								<input type="hidden" name="correctName" value="${room.studyName}" />
 								<input type="hidden" name="studyName" value="${studyName}" />
 								<input type="hidden" name="leader" value="${room.leader}" />
-								<input class="w3-button w3-blue w3-round " type="submit"
-									value="가입" /> 
+								<input class="w3-button w3-white w3-border w3-border-red w3-round-large" type="submit"
+									value="가입"  /> 
 							</form>
-							</c:if>
 						</c:if> 
 						<c:if test="${room.relation.status==1}">
-							<c:if test="${memberid!=null}">
-							<form action="cancelJoin" class="w3-right" method="post">
+						<div class="w3-dropdown-hover w3-round-large">
+						  <div class="w3-button w3-white w3-border w3-border-blue w3-round-large">대기
+						  </div>	
+							<div class="w3-dropdown-content w3-bar-block w3-border" >
+							 <form action="cancelJoin" method="post">
 								<input type="hidden" name="delNum" value="1" /> 
 								<input type="hidden" name="correctName" value="${room.studyName}" />
 								<input type="hidden" name="studyName" value="${studyName}" />
-								<input class="w3-button w3-red w3-round " type="submit"
-									value="취소" />
-							</form>
-							</c:if>
+								<input class="w3-button w3-bar-item w3-center" type="submit" 
+									value="요청 취소" />
+							</form> 
+							</div>
+						</div>
+						
 						</c:if>
-					</li>
-				</ul>
+						</div> 
+					</div>
+		<div id="${room.num }" 
+		 class="w3-hide w3-light-grey w3-leftbar w3-border-grey">
+        <div class="w3-center w3-border-top w3-border-right"><strong>&nbsp;<font size="3.8">[그룹정보]</font></strong><br></div>
+        	<div class="w3-cell-row w3-border-right">
+        		<div class="w3-cell w3-half" >&nbsp;&nbsp;&nbsp;&nbsp;⦁방장:&nbsp; ${room.leader}</div>
+        		<div class="w3-cell w3-half">&nbsp;&nbsp;&nbsp;&nbsp;⦁개설일:&nbsp; ${room.openDate}</div>
+        	</div>
+        	<div class="w3-border-right">&nbsp;&nbsp;&nbsp;&nbsp;⦁방소개: <span>&nbsp;${room.study_intro} </span></div>
+        	
+           		
+        </div>	
+					
+				</div>
 			</c:forEach> 
 		</div>
-		<div class="w3-third"></div>
 	</div>
 
 
@@ -71,6 +101,20 @@
 			class="fa fa-linkedin w3-hover-opacity"></i>
 	</div>
 </div>
+<script>
+// Accordion
+function studyIntro(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-theme-d1";
+    } else { 
+        x.className = x.className.replace("w3-show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace(" w3-theme-d1", "");
+    }
+}
 
+</script>
 
 </html>

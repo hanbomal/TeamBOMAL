@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import dao.RelationDAO;
 import dao.StudyDAO;
+import model.RelationVO;
 import model.StudyVO;
 
 @Controller
@@ -139,7 +140,15 @@ public class PageController {
 
 		return "page/study_board";
 	}
-
+	@RequestMapping("/RequestPage")
+	public String RequestPage(Model mv,HttpServletRequest req) throws Throwable {
+		autoComplete(mv);
+		RelationDAO relationDB = RelationDAO.getInstance();
+		String memberid = getSessionId(req);
+		List<RelationVO> reqList = relationDB.requestList(memberid);
+		mv.addAttribute("reqList", reqList);
+		return "page/RequestPage";
+	}
 	@RequestMapping("/study_album")
 	public String study_album(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 
