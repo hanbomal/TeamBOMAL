@@ -92,12 +92,36 @@ public class WebSocketServerGroup {
 		System.out.println(session.getRequestParameterMap());
 		// Add session to the connected sessions set
 		clients.add(session);
-		/*try {
-			onMessage("입장하였습니다.", session);
+		String line ="===fromServer===";
+		
+		for (Session client : clients) {
+			
+		line += (String)client.getRequestParameterMap().get("name").get(0)+",";
+		}
+		line+=clients.size();
+		System.out.println(line+"=============");
+		
+		try {
+			for (Session client : clients) {
+			
+				String cid = (String)	session.getRequestParameterMap().get("group").get(0);
+				String sid = (String)	client.getRequestParameterMap().get("group").get(0);
+				
+				System.out.println(sid+":"+cid);
+					
+					
+				client.getBasicRemote().sendText(line);
+							
+						
+
+					}
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
-		}*/
+		}
+		
+		
 	}
 
 	@OnClose
@@ -105,5 +129,33 @@ public class WebSocketServerGroup {
 		System.out.println("onClose");
 		// Remove session from the connected sessions set
 		clients.remove(session);
+String line ="===fromServer===";
+		
+		for (Session client : clients) {
+			
+		line += (String)client.getRequestParameterMap().get("name").get(0)+",";
+		}
+		line+=clients.size();
+		System.out.println(line+"=============");
+		
+		try {
+			for (Session client : clients) {
+			
+				String cid = (String)	session.getRequestParameterMap().get("group").get(0);
+				String sid = (String)	client.getRequestParameterMap().get("group").get(0);
+				
+				System.out.println(sid+":"+cid);
+					
+					
+				client.getBasicRemote().sendText(line);
+							
+						
+
+					}
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }
