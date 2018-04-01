@@ -14,7 +14,13 @@ public class StudyVO {
 	private int proSize;
 	private int backSize;
 	private RelationVO relation;
-	
+	@Override
+	public String toString() {
+		return "StudyVO [num=" + num + ", studyName=" + studyName + ", peopleCount=" + peopleCount + ", leader="
+				+ leader + ", openDate=" + openDate + ", study_pro=" + study_pro + ", study_back=" + study_back
+				+ ", study_intro=" + study_intro + ", proSize=" + proSize + ", backSize=" + backSize + ", relation="
+				+ relation + "]";
+	}
 	public RelationVO getRelation() {
 		return relation;
 	}

@@ -20,7 +20,6 @@
       <div class="w3-container " style="overflow:auto; background: rgba(241, 241, 241, 0.75); ">
 			     
 			     <form action="makingPro" enctype="multipart/form-data"  method="post">
-			     <input type="hidden" name=/>
 				 <p> 
 				   방 이름:&nbsp;&nbsp; <input type="text" name="studyName"/><br><br>
 				    방 소개:&nbsp;&nbsp;<br>
@@ -30,7 +29,7 @@
 				    <input type="file" size="40" name="study_pro" style="color: red;">
 			  		<p>
 				    배경 설정:&nbsp;&nbsp;
-				    <input type="file" size="40" name="study_back" style="color: red;">
+			    <input type="file" size="40" name="study_back" style="color: red;">  
 				    <p>
 			      <p><input class="w3-button w3-blue w3-section" type="submit" value="만들기"></p>
 			    </form>

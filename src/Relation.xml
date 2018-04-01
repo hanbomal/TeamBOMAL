@@ -12,9 +12,13 @@
 
 	<delete id="cancelJoin" parameterType="hashmap">
 		delete from studyrelation
-		where memberId=#{memberId}
+		where memberId=#{memberid}
 		and studyName=#{studyName}
 	</delete>
-
+	
+	<select id="requestList" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE memberid=#{memberid} and status=1
+	</select>
+	
 
 </mapper>

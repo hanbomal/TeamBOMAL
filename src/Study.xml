@@ -9,8 +9,7 @@
 
 	<insert id="makingStudy" parameterType="Room">
 		insert into studygroup
-		values(#{num},#{studyName},
-		#{peopleCount},#{leader},sysdate,#{study_pro},#{study_back},
+		values(#{num},#{studyName},#{peopleCount},#{leader},sysdate,#{study_pro},#{study_back},
 		#{study_intro},#{proSize},#{backSize})
 	</insert>
 
