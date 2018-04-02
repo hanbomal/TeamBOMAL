@@ -75,7 +75,7 @@
 					</div>
 		<div id="${room.num }" 
 		 class="w3-hide w3-light-grey w3-leftbar w3-border-grey">
-        <div class="w3-center w3-border-top w3-border-right"><strong>&nbsp;<font size="3.8">[그룹정보]</font></strong><br></div>
+        <div class="w3-border-top w3-border-right"><strong>&nbsp;<font size="3.8">[그룹정보]</font></strong><br></div>
         	<div class="w3-cell-row w3-border-right">
         		<div class="w3-cell w3-half" >&nbsp;&nbsp;&nbsp;&nbsp;⦁방장:&nbsp; ${room.leader}</div>
         		<div class="w3-cell w3-half">&nbsp;&nbsp;&nbsp;&nbsp;⦁개설일:&nbsp; ${room.openDate}</div>

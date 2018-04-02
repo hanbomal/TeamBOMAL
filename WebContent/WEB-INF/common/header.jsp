@@ -82,7 +82,7 @@ body, html {
 						<a href="RequestPage" class="w3-bar-item w3-button">REQUEST
 						<span class="w3-badge w3-small w3-blue">3</span>
 						</a> 
-						<a href="#" class="w3-bar-item w3-button">RESPONSE
+						<a href="ResponsePage" class="w3-bar-item w3-button">RESPONSE
 						<span class="w3-badge w3-small w3-blue">2</span>
 						</a>
 					</div>

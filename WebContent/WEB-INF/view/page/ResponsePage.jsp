@@ -26,23 +26,18 @@
       <th>Group Name</th>
       <th>Status</th>
     </tr>
-  	<c:if test="${reqList.size()==0}">
+  	<c:if test="${resList.size()==0}">
     <tr>
       <td colspan="3" class="w3-center">No impormation</td>
     </tr>
   	</c:if>
   	
-  	<c:if test="${reqList.size()!=0}">
-  	<c:forEach var="group" items="${reqList}">
-     <tr id="acep">
+  	<c:if test="${resList.size()!=0}">
+  	<c:forEach var="group" items="${resList}">
+     <tr>
       <td>${group.joinDate }</td>
       <td>${group.studyName}</td>
-      <c:if test="${group.status==1 }">
-      <td>승인 대기중</td>
-      </c:if>
-      <c:if test="${group.status==2 }">
-      <td>승인  <span onclick="document.getElementById('acep').style.display='none'">&times;</span></td>
-      </c:if>
+      <td>${group.status }</td>
     </tr>
     </c:forEach>	
   	</c:if>

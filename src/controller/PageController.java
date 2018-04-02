@@ -149,6 +149,17 @@ public class PageController {
 		mv.addAttribute("reqList", reqList);
 		return "page/RequestPage";
 	}
+	
+	@RequestMapping("/ResponsePage")
+	public String ResponsePage(Model mv,HttpServletRequest req) throws Throwable {
+		autoComplete(mv);
+		RelationDAO relationDB = RelationDAO.getInstance();
+		String memberid = getSessionId(req);
+		List<RelationVO> resList = relationDB.responseList(memberid);
+		mv.addAttribute("resList", resList);
+		return "page/ResponsePage";
+	}
+	
 	@RequestMapping("/study_album")
 	public String study_album(HttpServletRequest req, HttpServletResponse res) throws Throwable {
 

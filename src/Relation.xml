@@ -20,5 +20,8 @@
 	SELECT * FROM studyrelation WHERE memberid=#{memberid} and status=1
 	</select>
 	
+	<select id="responseList" resultType="Relation" parameterType="hashmap">
+	SELECT * FROM studyrelation WHERE leader=#{memberid} and status=1
+	</select>
 
 </mapper>
