@@ -24,8 +24,70 @@ $( function() {
     	
     });
   } );
+  
+$(document).ready(function(){
+	  var fileTarget = $('.filebox .upload-hidden');
 
+	    fileTarget.on('change', function(){
+	        if(window.FileReader){
+	            var filename = $(this)[0].files[0].name;
+	        } else {
+	            var filename = $(this).val().split('/').pop().split('\\').pop();
+	        }
+	
+	        $('.upload-name').val(filename);
+	    document.getElementById('upload-name').style.display='block';
+	       
+	    });
+	}); 
+
+
+function sendEvent(){
+	
+	$('#sendinput').submit(function(event){
+		 
+		  var data=$(this).serialize();
+		  update(data);
+		   document.getElementById('addDay').style.display='none';
+		   document.getElementById('message').style.display='block';
+			  
+			  event.preventDefault();} );
+}
 </script>
+<style type="text/css">
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+    
+}
+
+
+/* named upload */
+.filebox .upload-name {
+    display: inline-block;
+    padding: .5em .75em;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+
+</style>
 </head>
 
 
@@ -45,24 +107,29 @@ $( function() {
       <div class="w3-container w3-white " >
      
       <div class="w3-panel w3-round-large w3-border w3-padding " >
-  <span  class="w3-tag w3-white " style="font-size:12px;">첨부된 파일 : example.jpg</span>
+  <span  class="w3-tag w3-white " style="font-size:12px;">  
+  <input class="upload-name" id="upload-name" value="파일선택" disabled="disabled" style="display: none;"></span>
   <table style="width: 100%;"><tr><td style="width: 90%;">
   
   <textarea  id="inputMessage" class="w3-input" style="border:0; display: inline-block; " 
   onkeydown="if(event.keyCode==13){send();}" ></textarea></td><td>
   	<button class="w3-button  w3-teal" type="submit" onclick="send()">전송</button></td>
   </table>
-   </div>
-     
+   </div> <div class="filebox bs3-primary">
+    
      <div class="w3-bar " style="margin-bottom: 7px; margin-left:10px; margin-right:20px;">
-<i class="fa fa-file-image-o" style="font-size:24px;" ></i>&nbsp;&nbsp;&nbsp;
-<i class="fa fa-file-text-o" style="font-size:24px"></i>&nbsp;&nbsp;&nbsp;
-<i class="fa fa-hashtag" style="font-size:24px"></i>&nbsp;&nbsp;&nbsp;
+   
+    <label for="ex_filename"><i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
+  <input type="file" id="ex_filename" class="upload-hidden"> 
 
-<i class="fa fa-search " style="font-size:24px"></i>&nbsp;
+<button class="w3-button w3-padding-small"><i class="fa fa-file-text-o" style="font-size:24px"></i></button>
+<button class="w3-button w3-padding-small"><i class="fa fa-hashtag" style="font-size:24px"></i></button>&nbsp;&nbsp;
+<label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
 <input type="text" class="w3-input  w3-hover-light-grey" style="display: inline-block; width: 140px; " placeholder="검색어 입력">
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" ><font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
 </div>
+
+ </div>
   </div>
 
   </div>
@@ -167,12 +234,6 @@ $( function() {
 		
 	}
       
- 
-         
-         
-       
-
-        
         
              textarea.scrollTop=textarea.scrollHeight;
        
