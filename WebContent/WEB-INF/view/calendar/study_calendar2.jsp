@@ -32,6 +32,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ 
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 달력 출력 자바스크립트 -->
 
 <script type="text/javascript">
@@ -49,6 +52,8 @@ var dataset = [
        
     </c:forEach> 
 ];
+
+
 
 jQuery(document).ready(function(){
     jQuery("#calendar").fullCalendar({
@@ -72,22 +77,23 @@ jQuery(document).ready(function(){
          , defaultDate : new Date()
          , nowIndicator: true
          ,now: new Date()
+        ,height:'parent'
+        	 ,aspectRatio: 2
+        ,handleWindowResize:true
         , locale : 'ko'
         , editable : true
+        ,eventResize: function(event, delta, revertFunc) {
+
+
+            if (!confirm(event.title+"의 종료일을 "+event.end.format()+"로 변경합니다.")) {
+              revertFunc();
+            }else{
+            	  
+        		  var data='title='+event.title+'&place='+event.place+'&studynum='+event.studynum+'&id='+event.id+'&description='+event.description+"&startdate="+event.start.format()+"&enddate="+event.end.format();
+        		  update(data);};
+            }
         , eventLimit : true
-        // THIS KEY WON'T WORK IN PRODUCTION!!!
-        // To make your own Google API key, follow the directions here:
-        // http://fullcalendar.io/docs/google_calendar/나중에받아오기
-        /* , googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE'
-        	, eventSources : [
-                // 대한민국의 공휴일
-                {
-                      googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
-                    , className : "koHolidays"
-                    , color : "#009688"
-                    , textColor : "#FFFFFF"
-                }]
-       */
+       
         , events: dataset
         , eventClick: 
         	
@@ -103,7 +109,7 @@ jQuery(document).ready(function(){
 
         ,eventDrop: function(event, delta, revertFunc) {
            
-            if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다")) {	
+            if (!confirm(event.title + "을(를) " + event.start.format() + "로 이동합니다.")) {	
                  revertFunc(); 
             }else{
   
@@ -113,6 +119,9 @@ jQuery(document).ready(function(){
         
         }
         , navLinks: true
+       /*  , windowResize: function(view) {
+            alert('The calendar has adjusted to a window resize');
+        } */
        /* ,allDay:true  각 스케쥴에 map으로 넣기*/
        , select: function(startDate, endDate) {
     	   document.getElementById('title').value='';
@@ -127,16 +136,16 @@ jQuery(document).ready(function(){
     });
 });
 
- 
+
     
 
 </script>
 
-<body class="w3-padding">
+<body class="w3-padding ui-widget-content">
 
 
 <!-- 달력 출력 모달 -->
-    <div class="w3-container" id="calendar" ></div>
+    <div class="w3-container  " id="calendar" style="height:600px;"></div>
     
      <!-- 메시지 모달 -->
        <div id="message" class="w3-modal" >
@@ -155,7 +164,7 @@ jQuery(document).ready(function(){
         <span onclick="document.getElementById('addDay').style.display='none'; document.getElementById('startdate').value=''; document.getElementById('enddate').value=''; " class="w3-button w3-display-topright">&times;</span>
        
 <div class="calendarForm w3-center  w3-container w3-padding" id="modal">
-	<form id="userinput" >
+	<form id="userinput" method="post" >
 	<ul class="w3-ul w3-light-grey">
 	<li><label>제목</label><input type="text" id="title" name="title" class="w3-input w3-border"></li>
 	<li><label>장소</label><input type="text" id="place" name="place" class="w3-input w3-border"></li>
