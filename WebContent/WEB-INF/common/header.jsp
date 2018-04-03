@@ -46,7 +46,17 @@ body, html {
 	padding-left: 10px;
 }
 /* style="overflow:hidden;" */
+
 </style>
+<script type="text/javascript">
+           // 로그아웃 담당 JSP로 이동
+           function logoutPro(){
+               location.href="${pageContext.request.contextPath}/member/logoutPro";
+               alert('LOGOUT');
+              }
+          
+           
+       </script>
 </head>
 <body>
 
@@ -87,10 +97,53 @@ body, html {
 						</a>
 					</div>
 				</div>
-
-				<a href="javascript:void(0)" class="w3-bar-item w3-button"
-					onclick="document.getElementById('login').style.display='block'"><i
-					class="fa fa-user"></i> MYPAGE</a>
+				
+		
+				
+				
+		
+				<c:if test="${sessionScope.memberid==null}">
+            <a href="javascript:void(0)" class="w3-bar-item w3-button"
+               onclick="document.getElementById('login').style.display='block'"><i
+               class="fa fa-user"></i> MYPAGE</a>
+               </c:if>
+            <c:if test="${sessionScope.memberid!=null}"> 
+            <div class="w3-dropdown-hover">
+					<button class="w3-button">
+						<i class="fa fa-user"></i> ${sessionScope.memberid} 님
+					</button>
+					<div class="w3-dropdown-content w3-bar-block w3-border">
+						<a href="updatePage" class="w3-bar-item w3-button">MY PAGE
+						
+						</a> 
+						<a href="RequestPage" class="w3-bar-item w3-button">WAITING
+						
+						</a>
+						<input class="w3-bar-item w3-button" value="LOGOUT" onclick="logoutPro()"/>
+						
+						
+						
+						
+					
+					</div>
+				</div>
+            
+            
+            
+            
+            
+            
+            
+            <!-- 
+            
+            
+            <a href="javascript:void(0)" class="w3-bar-item w3-button"
+               onclick="document.getElementById('iflogin').style.display='block'"><i
+               class="fa fa-user"></i>${sessionScope.memberid} 님</a>
+               </c:if>   	
+               -->
+            
+					
 				<div class="w3-dropdown-hover">
 					<button class="w3-button">
 						<i class="fa fa-th"></i> WORKSPACE
@@ -148,8 +201,9 @@ body, html {
 
 			</div>
 
-			<form class="w3-container" method="post" action="../member/loginPro">
+			<form class="w3-container" method="post" action="../member/loginPro" onsubmit="return checkValue()">
 				<div class="w3-section">
+			
 					<label><b>ID</b></label> <input
 						class="w3-input w3-border w3-margin-bottom" type="text"
 						style="display: block; width: 100%;" placeholder="아이디를 입력하세요."
@@ -167,13 +221,21 @@ body, html {
 				<button
 					onclick="document.getElementById('login').style.display='none'"
 					type="button" class="w3-button w3-black">취소</button>
+					
 				<span class="w3-right w3-padding w3-hide-small"><a
 					href="../member/join">회원가입</a>&nbsp;&nbsp;&nbsp; <a href="#">비밀번호</a>를
 					잊으셨나요?</span>
+					
+					
+					
 			</div>
 
 		</div>
 	</div>
+
+
+
+
 
 
 </body>

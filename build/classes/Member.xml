@@ -7,5 +7,15 @@
 	<select id="login" resultType="String" parameterType="hashmap">
 		select passwd from member where memberid=#{memberid}
 	</select>
+	
+<select id="getNextNumber" parameterType="int">
+	
+	select memberser.nextval from dual
+	</select>	
+<!--  	
+<insert id="insertMember" parameterType="member">
+      insert into member(memberid, passwd, nickname, joindate, lastdate) values(#{memberid},#{passwd},#{nickname}, sysdate, sysdate )
+   </insert>	
+	-->
 
 </mapper>

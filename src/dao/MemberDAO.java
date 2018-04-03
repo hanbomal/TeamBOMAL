@@ -21,7 +21,7 @@ public class MemberDAO extends MybatisConnector {
 		private final String namespace="member";
 		SqlSession sqlSession;
 	
-		// �̱���
+	
 		private static MemberDAO instance = new MemberDAO();
 		private String id;
 		private MemberDAO() {
@@ -31,9 +31,7 @@ public class MemberDAO extends MybatisConnector {
 		public static MemberDAO getInstance() {
 			return instance;
 		}
-		// ��Ŭ�� end.
-		
-		// �����ͺ��̽� ���� ��������
+	
 		public static Connection getConnection() {
 			Connection conn = null;
 			try {
@@ -49,14 +47,14 @@ public class MemberDAO extends MybatisConnector {
 			return conn;
 		}
 		
-		// Close
+	
 		public void close (Connection conn, ResultSet rs, PreparedStatement pstmt) {
 			if(conn!=null) try {conn.close();} catch(SQLException ex) {}
 			if(rs!=null) try {rs.close();} catch(SQLException ex) {}
 			if(pstmt!=null) try {pstmt.close();} catch (SQLException e) {}
 		}
 		
-		// ȸ������ (�߰�) �޼ҵ�
+		
 		public void insertMember(MemberVO member) {
 			String sql="";
 			Connection conn = getConnection();
@@ -93,7 +91,7 @@ public class MemberDAO extends MybatisConnector {
 			
 		}
 		
-		// ȸ�� �� �޼ҵ�
+
 		public int getMemberCount(String listid) throws SQLException {
 			int x = 0;
 			String sql = "SELECT nvl(count(*),0) FROM member WHERE listid = ?";
@@ -117,7 +115,7 @@ public class MemberDAO extends MybatisConnector {
 			return x;
 		}
 		
-		// ȸ������Ʈ ������ �޼ҵ�
+		
 		public List getMembers(int startRow, int endRow, String listid) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -191,7 +189,7 @@ public class MemberDAO extends MybatisConnector {
 		}
 		
 		
-		// ȸ�� �����Ҷ� ���� �ҷ�����
+		
 		public MemberVO getmember(String id, String passwd) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -267,8 +265,8 @@ public class MemberDAO extends MybatisConnector {
 				pstmt.setInt(4, member.getNum());
 				
 				
-				chk = pstmt.executeUpdate(); //�÷��� ������Ʈ�� �Ǿ����� ���ڸ� ��ȯ
-				/*pstmt.executeUpdate(); <- �����.*/
+				chk = pstmt.executeUpdate(); 
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();

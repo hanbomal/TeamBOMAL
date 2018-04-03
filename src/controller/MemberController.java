@@ -70,11 +70,23 @@ public class MemberController {
 			// session.setAttribute("nickname",mVO.getNickname());
 			session.setAttribute("passwd", passwd);
 			res.sendRedirect(req.getContextPath() + "/page/main");
+		
 		} else {
 			req.setAttribute("pwcheck", pwcheck);
 			return "member/loginPro";
 		}
 		return null;
 	}
+	
+	@RequestMapping("/logoutPro")	
+	   public String LogoutPro(HttpServletRequest req, HttpServletResponse res)  throws Throwable {
+		      
+	       HttpSession  session = req.getSession();
+	      
+	       session.invalidate(); // 모든세션정보 삭제
+	       res.sendRedirect(req.getContextPath() + "/page/main"); // 메인화면으로 다시 돌아간다.
+	      return null;
+	   }
+	
 
 }
