@@ -16,6 +16,11 @@
 	<select id="resultList" resultType="Room" parameterType="hashmap">
 		select * from studygroup where studyName like '%'||#{studyName}||'%'
 	</select>
+	<select id="resultListByDate" resultType="Room" parameterType="hashmap">
+		select * from studygroup where studyName like '%'||#{studyName}||'%' ORDER BY openDate DESC
+	</select>
+	
+	
 
  <select id="getRelation" parameterType="hashmap" resultType="Relation">
 		select memberId,r.studyName, joinPoint, r.nickName,

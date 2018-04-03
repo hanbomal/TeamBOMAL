@@ -60,9 +60,9 @@ body, html {
 
 				<form action="main" autocomplete="off" method="post">
 					<input type="text" style="outline: none; width: 300px"
-						class="w3-round" placeholder="Search..." name="studyName"
+						placeholder="Search..." name="studyName"
 						id="myInput">
-					<button type="submit" class="w3-button w3-blue w3-round"
+					<button type="submit" class="w3-button w3-blue"
 						style="margin-left: -4px; padding: 8px; margin-bottom: 2px">
 						<i class="fa fa-search w3-large"></i>
 					</button>
@@ -80,7 +80,6 @@ body, html {
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-border">
 						<a href="RequestPage" class="w3-bar-item w3-button">REQUEST
-						<span class="w3-badge w3-small w3-blue">3</span>
 						</a> 
 						<a href="ResponsePage" class="w3-bar-item w3-button">RESPONSE
 						<span class="w3-badge w3-small w3-blue">2</span>

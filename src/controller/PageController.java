@@ -23,6 +23,7 @@ import model.StudyVO;
 @Controller
 @RequestMapping("/page")
 public class PageController {
+	RelationDAO relationDB = RelationDAO.getInstance();
 	// autoComplete Method
 	public void autoComplete(Model mv) throws Throwable {
 		StudyDAO studyDB = StudyDAO.getInstance();
@@ -46,22 +47,26 @@ public class PageController {
 	}
 
 	@RequestMapping("/main")
-	public String main(Model mv, String studyName,HttpServletRequest req) throws Throwable {
+	public String main(Model mv, String studyName,HttpServletRequest req, String chk) throws Throwable {
 		autoComplete(mv);
 		StudyDAO studyDB = StudyDAO.getInstance();
 		if (studyName == null) {
 			studyName = "defaultName";
 		}
+		if(chk==null) {
+			chk="";
+		}
 		String memberid = getSessionId(req);
-		List<StudyVO> group = studyDB.resultList(studyName, memberid);
+		List<StudyVO> group = studyDB.resultList(studyName, memberid, chk);
 		mv.addAttribute("group", group);
 		mv.addAttribute("studyName", studyName);
+		mv.addAttribute("chk",chk);
 		return "page/main";
 	}
 
 	@RequestMapping("/requestJoin")
 	public String requestJoin(String reqNum,String correctName,
-			HttpServletRequest req,String studyName,String leader) throws Throwable {
+			HttpServletRequest req,String studyName,String leader,String chk) throws Throwable {
 		RelationDAO dbPro = RelationDAO.getInstance();
 		if (reqNum == null) {
 			reqNum = "";
@@ -69,14 +74,14 @@ public class PageController {
 		if (reqNum.equals("1")) {
 			dbPro.requestJoin(getSessionId(req), correctName, "member_nick", "회원", leader);
 			studyName = URLEncoder.encode(studyName, "UTF-8");
-			return "redirect:/page/main?studyName="+ studyName;
+			return "redirect:/page/main?&studyName="+ studyName+"&chk="+chk;
 		}
 		return null;
 	}
 
 	@RequestMapping("/cancelJoin")
 	public String cancelJoin(HttpServletRequest req, HttpServletResponse res,
-			String studyName, String correctName) throws Throwable {
+			String studyName, String correctName, String chk) throws Throwable {
 		RelationDAO dbPro = RelationDAO.getInstance();
 		String delNum = req.getParameter("delNum");
 		if (delNum == null) {
@@ -85,7 +90,7 @@ public class PageController {
 		if (delNum.equals("1")) {
 			dbPro.cancelJoin(getSessionId(req), correctName);
 			studyName = URLEncoder.encode(studyName, "UTF-8");
-			return "redirect:/page/main?studyName="+ studyName;
+			return "redirect:/page/main?studyName="+ studyName+"&chk="+chk ;
 		}
 		return null;
 	}
@@ -143,7 +148,7 @@ public class PageController {
 	@RequestMapping("/RequestPage")
 	public String RequestPage(Model mv,HttpServletRequest req) throws Throwable {
 		autoComplete(mv);
-		RelationDAO relationDB = RelationDAO.getInstance();
+		
 		String memberid = getSessionId(req);
 		List<RelationVO> reqList = relationDB.requestList(memberid);
 		mv.addAttribute("reqList", reqList);
