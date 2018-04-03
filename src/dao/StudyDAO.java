@@ -30,14 +30,19 @@ public class StudyDAO extends MybatisConnector{
 		sqlSession.commit();
 		sqlSession.close();
 	}
-	public List resultList(String studyName, String memberid) {
+	public List resultList(String studyName, String memberid, String chk) {
 		sqlSession=sqlSession();
 		Map<String,String> map = new HashMap<>();
 		map.put("studyName", studyName);
-		List li=sqlSession.selectList(namespace+".resultList",map);
+		List li=null;
+		
+		if(chk.equals("byDate")) {
+			li=sqlSession.selectList(namespace+".resultListByDate",map);
+		}else {
+			li=sqlSession.selectList(namespace+".resultList",map);
+		}
 		List groupli=null;
 		Iterator it = li.iterator(); 
-		
 		if(it.hasNext()) {
 			groupli=new ArrayList<>();
 			do {

@@ -5,88 +5,99 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- content -->
 <div class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-	<br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<!--개설된 방  검색 결과 추가 -->
-	<div class="w3-cell-row">
-		<div class="w3-third"></div>
-		<div class="w3-container w3-cell" style="width: 50%">
-		<c:if test="${group.size()!=null}">
-				<div class="w3-card-4 w3-light-grey w3-leftbar w3-border-grey" >
-				<font >&nbsp;검색결과: ${group.size()}</font>	
-			<!-- 
-				필터 넣어야되는데 귀찮다...
-			<select class="w3-right" onchange="window.location='mainPage?pageId='+this.value">
-  			  <option  value="">&nbsp;정열&nbsp;</option>
+	<div class="w3-section w3-row">
+		<div class="w3-third">&nbsp;</div>
+		<div class="w3-container w3-third" >
+			<c:if test="${group.size()!=null}">
+				<div class="w3-card-4 w3-white w3-padding">
+					<font>&nbsp;검색결과: ${group.size()} 건</font>
+					 
+			<select class="w3-right" style="margin-top:1.5px" 
+			onchange="window.location='main?studyName=${studyName}&chk='+this.value">
+  			  <option value="${chk}" selected disabled="disabled">
+  			  <c:if test="${chk!='byDate'}">정확도순</c:if>
+  			  <c:if test="${chk=='byDate'}">최신순</c:if>
+  			  </option>
+			
+  			  <option value="byName">정확도순</option>
+  			  <option value="byDate">최신순</option>
 			</select>
-				 -->
 				</div>
-		</c:if>		
-		 <c:forEach var="room" items="${group}">
-				<div class="w3-card-4 w3-light-grey ">
+			</c:if>
+			<c:forEach var="room" items="${group}">
+				<div class="w3-card-4 w3-light-grey " >
 					<div class="w3-cell-row">
-						<div class="w3-cell w3-cell-middle w3-center" style="width:15%">
-						<!--그룹 프로필  --> 
-						<c:if test="${room.study_pro==null }">
-							<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
-								class="w3-bar-item w3-hide-small" style="width: 90px;height:70px" >
-						</c:if> 
-						
-						<c:if test="${room.study_pro!=null }">
-							<img
-								src="<%=request.getContextPath()%>/fileSave/${room.study_pro}"
-								class="w3-bar-item w3-hide-small" style="width: 90px;height:70px">
-						</c:if>
+						<div class="w3-cell w3-cell-middle w3-center w3-hide-small"
+							style="width: 80px; height: 65px">
+							<!--그룹 프로필  -->
+							<c:if test="${room.study_pro==null }">
+								<img src="<%=request.getContextPath()%>/imgs/defaultprofile.png"
+									class="w3-border w3-hide-small"
+									style="height: 70px; width: 70px">
+							</c:if>
+
+							<c:if test="${room.study_pro!=null }">
+								<img
+									src="<%=request.getContextPath()%>/fileSave/${room.study_pro}"
+									class="w3-border w3-hide-small"
+									style="height: 70px; width: 70px">
+							</c:if>
 						</div>
-						<div class="w3-cell w3-cell-middle w3-center" style="width:75%">
-						<div class="w3-bar-item">
-							<span class="w3-large"><a href="#" onclick="studyIntro('${room.num}')">${room.studyName}</a>
-							</span>	<span>(멤버수: ${room.peopleCount})</span> 
-						
+						<div class="w3-cell " style="height:65px;padding:5px;padding-left:10px">
+							<div >⦁그룹명: <font size="3"><Strong>${room.studyName}</Strong></font>
+						</div>	
+						<div class="w3-row">
+							<div class="w3-third">⦁방 장: ${room.leader}</div>	
+							<div class="w3-third">⦁멤버수: ${room.peopleCount}</div>
+							<div class="w3-third">⦁개설일: ${room.openDate}</div>
 						</div> 
-						</div>
-						<div class="w3-cell w3-cell-middle w3-center w3-hide-small" style="width:20%;padding:10px">
-						<c:if test="${room.relation.status==null}">
-							<form action="requestJoin" method="post" >
-								<input type="hidden" name="reqNum" value="1" /> 
-								<input type="hidden" name="correctName" value="${room.studyName}" />
-								<input type="hidden" name="studyName" value="${studyName}" />
-								<input type="hidden" name="leader" value="${room.leader}" />
-								<input class="w3-button w3-white w3-border w3-border-red w3-round-large" type="submit"
-									value="가입"  /> 
-							</form>
-						</c:if> 
-						<c:if test="${room.relation.status==1}">
-						<div class="w3-dropdown-hover w3-round-large">
-						  <div class="w3-button w3-white w3-border w3-border-blue w3-round-large">대기
-						  </div>	
-							<div class="w3-dropdown-content w3-bar-block w3-border" >
-							 <form action="cancelJoin" method="post">
-								<input type="hidden" name="delNum" value="1" /> 
-								<input type="hidden" name="correctName" value="${room.studyName}" />
-								<input type="hidden" name="studyName" value="${studyName}" />
-								<input class="w3-button w3-bar-item w3-center" type="submit" 
-									value="요청 취소" />
-							</form> 
-							</div>
+						<div >⦁소 개: ${room.study_intro}
 						</div>
 						
-						</c:if>
-						</div> 
+
+						</div>
+						<div class="w3-cell w3-cell-middle w3-center "
+							style="width: 10%;padding:5px">
+							<c:if test="${room.relation.status==null}">
+								<form action="requestJoin" method="post">
+									<input type="hidden" name="reqNum" value="1" /> 
+									<input type="hidden" name="correctName" value="${room.studyName}" />
+									<input type="hidden" name="studyName" value="${studyName}" />
+									<input type="hidden" name="leader" value="${room.leader}" /> 
+									<input type="hidden" name="chk" value="${chk}" /> 
+									<input class="w3-button w3-white w3-border w3-border-red"	
+									type="submit" value="가입" style="height:70px" />
+								</form>
+							</c:if>
+							<c:if test="${room.relation.status==1}">
+								<div class="w3-dropdown-hover w3-round-large">
+									<div class="w3-button w3-white w3-border w3-border-blue w3-cell w3-cell-middle" 
+									style="height:70px;">대기
+									</div>
+									<div class="w3-dropdown-content w3-bar-block w3-border">
+										<form action="cancelJoin" method="post">
+											<input type="hidden" name="chk" value="${chk}" /> 
+											<input type="hidden" name="delNum" value="1" /> 
+											<input type="hidden" name="correctName" value="${room.studyName}" />
+											<input type="hidden" name="studyName" value="${studyName}" />
+											<input class="w3-button w3-bar-item w3-center" type="submit"
+												value="요청 취소" />
+										</form>
+									</div>
+								</div>
+
+							</c:if>
+						</div>
 					</div>
-		<div id="${room.num }" 
-		 class="w3-hide w3-light-grey w3-leftbar w3-border-grey">
-        <div class="w3-center w3-border-top w3-border-right"><strong>&nbsp;<font size="3.8">[그룹정보]</font></strong><br></div>
-        	<div class="w3-cell-row w3-border-right">
-        		<div class="w3-cell w3-half" >&nbsp;&nbsp;&nbsp;&nbsp;⦁방장:&nbsp; ${room.leader}</div>
-        		<div class="w3-cell w3-half">&nbsp;&nbsp;&nbsp;&nbsp;⦁개설일:&nbsp; ${room.openDate}</div>
-        	</div>
-        	<div class="w3-border-right">&nbsp;&nbsp;&nbsp;&nbsp;⦁방소개: <span>&nbsp;${room.study_intro} </span></div>
-        	
-           		
-        </div>	
-					
+			
+
 				</div>
-			</c:forEach> 
+			</c:forEach>
 		</div>
 	</div>
 
@@ -101,7 +112,7 @@
 			class="fa fa-linkedin w3-hover-opacity"></i>
 	</div>
 </div>
-<script>
+<!-- <script>
 // Accordion
 function studyIntro(id) {
     var x = document.getElementById(id);
@@ -116,5 +127,5 @@ function studyIntro(id) {
 }
 
 </script>
-
+ -->
 </html>

@@ -51,4 +51,12 @@ public class RelationDAO extends MybatisConnector{
 		return li;
 	}
 	
+	public List responseList(String memberid) {
+		sqlSession=sqlSession();
+		Map<String, String> map = new HashMap<>();
+		map.put("memberid", memberid);
+		List<RelationVO> li=sqlSession.selectList(namespace+".responseList",map);
+		sqlSession.close();
+		return li;
+	}
 }
