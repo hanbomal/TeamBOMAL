@@ -16,7 +16,7 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-body, h1, h2, h3, h4, h5, h6 {
+body, h1, h2, h3, h4, h5, h6,pre {
 	font-family: "Raleway", sans-serif
 }
 

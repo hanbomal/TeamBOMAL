@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import board.BoardDataBean;
 import model.Chatdata;
 
 @Controller
@@ -119,4 +127,34 @@ public class ChatController {
 
 	}
 	
+	/*
+	@RequestMapping("/fileUpload")
+	public String writeProUpload(MultipartHttpServletRequest request, BoardDataBean article, Model model)
+			throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		MultipartFile multi = request.getFile("uploadfile");
+		String filename = multi.getOriginalFilename();
+		System.out.println("filename:[" + filename + "]");
+		if (filename != null && !filename.equals("")) {
+			String uploadPath = request.getRealPath("/") + "fileSave";
+			System.out.println(uploadPath);
+			FileCopyUtils.copy(multi.getInputStream(),
+					new FileOutputStream(uploadPath + "/" + multi.getOriginalFilename()));
+			article.setFilename(filename);
+			article.setFilesize((int) multi.getSize());
+		} else {
+			article.setFilename("");
+			article.setFilesize(0);
+		}
+		article.setIp(request.getRemoteAddr());
+		System.out.println(article);
+
+		dbPro.insertArticle(article);
+		model.addAttribute("pageNum", pageNum);
+
+		return "redirect:list";
+	}
+	*/
 }

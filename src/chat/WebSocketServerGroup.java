@@ -57,7 +57,7 @@ public class WebSocketServerGroup {
 	            
 	            if(file.isFile() && file.canWrite()){
 
-	                bufferedWriter.write(movemessage.trim().replace("\n", ""));
+	                bufferedWriter.write(movemessage.trim().replace("\n", "<br>"));
 	                bufferedWriter.newLine();
 	                bufferedWriter.close();}
 	            

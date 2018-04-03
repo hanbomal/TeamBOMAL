@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <meta charset="UTF-8">
-<title>Testing websockets</title>
+<title>websockets</title>
 
 <script>
 $( function() {
@@ -36,8 +36,10 @@ $(document).ready(function(){
 	        }
 	
 	        $('.upload-name').val(filename);
-	    document.getElementById('upload-name').style.display='block';
+	    document.getElementById('upload-nameBox').style.display='block';
 	       
+	    
+	    
 	    });
 	}); 
 
@@ -53,6 +55,14 @@ function sendEvent(){
 			  
 			  event.preventDefault();} );
 }
+
+
+function resetFile(){
+	 document.getElementById('upload-nameBox').style.display='none';
+	 document.getElementById('upload-display').style.display='none';
+	 document.getElementById('ex_filename').value="";
+}
+
 </script>
 <style type="text/css">
 
@@ -86,6 +96,47 @@ function sendEvent(){
   appearance: none;
 }
 
+pre {
+margin:0;
+padding:0;
+font-size: inherit;
+font-family: inherit;
+font-style: inherit;
+font: inherit;
+  white-space: pre-wrap;
+}
+
+.redColor{background-color:red;}
+
+/* imaged preview */ 
+.filebox .upload-display { 
+/* 이미지가 표시될 지역 */
+ margin-bottom: 5px; } 
+ 
+ @media(min-width: 768px) {
+  .filebox .upload-display { 
+  display: inline-block;
+   margin-right: 5px;
+    margin-bottom: 0; } } 
+    
+.filebox .upload-thumb-wrap {
+ /* 추가될 이미지를 감싸는 요소 */
+ display: inline-block;
+  width: 54px; 
+  padding: 2px; 
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+   background-color: #fff; } 
+      
+.filebox .upload-display img {
+ /* 추가될 이미지 */ 
+ display: block; 
+ max-width: 100%; 
+ width: 100% \9; 
+ height: auto; }
+
+
 
 </style>
 </head>
@@ -106,26 +157,27 @@ function sendEvent(){
 
       <div class="w3-container w3-white " >
      
-      <div class="w3-panel w3-round-large w3-border w3-padding " >
-  <span  class="w3-tag w3-white " style="font-size:12px;">  
-  <input class="upload-name" id="upload-name" value="파일선택" disabled="disabled" style="display: none;"></span>
+      <div class="w3-panel w3-round-large w3-border w3-padding " ><div class=""></div> 
+   <div id="upload-nameBox" style="display: none;"><span  class="w3-tag w3-white " style="font-size:12px;"> 
+ <input class="upload-name " id="upload-name" disabled="disabled"><button class="w3-button w3-padding-small " onclick="resetFile();">&times;</button></span></div>
   <table style="width: 100%;"><tr><td style="width: 90%;">
   
-  <textarea  id="inputMessage" class="w3-input" style="border:0; display: inline-block; " 
-  onkeydown="if(event.keyCode==13){send();}" ></textarea></td><td>
+  <textarea  id="inputMessage" class="w3-input" wrap=hard  style="border:0; display: inline-block; " 
+  onkeydown="checkKey(event.keyCode);" ></textarea></td><td>
   	<button class="w3-button  w3-teal" type="submit" onclick="send()">전송</button></td>
   </table>
-   </div> <div class="filebox bs3-primary">
+   </div> <div class="filebox bs3-primary preview-image">
     
      <div class="w3-bar " style="margin-bottom: 7px; margin-left:10px; margin-right:20px;">
    
-    <label for="ex_filename"><i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
+    <label for="ex_filename" class="w3-button w3-padding-small" id="addfilebtn"><i class="fa fa-file-image-o" style="font-size:24px;" ></i></label> 
   <input type="file" id="ex_filename" class="upload-hidden"> 
 
-<button class="w3-button w3-padding-small"><i class="fa fa-file-text-o" style="font-size:24px"></i></button>
-<button class="w3-button w3-padding-small"><i class="fa fa-hashtag" style="font-size:24px"></i></button>&nbsp;&nbsp;
+<label class="w3-button w3-padding-small"><i class="fa fa-file-text-o" style="font-size:24px"></i></label>
+<label class="w3-button w3-padding-small"><i class="fa fa-hashtag" style="font-size:24px"></i></label>&nbsp;&nbsp;
 <label><i class="fa fa-search w3-margin-left" style="font-size:20px"></i></label>&nbsp;
-<input type="text" class="w3-input  w3-hover-light-grey" style="display: inline-block; width: 140px; " placeholder="검색어 입력">
+<input type="text" class="w3-input  w3-hover-light-grey" style="display: inline-block; width: 140px; " id="searchText" placeholder="검색어 입력"
+onkeyup="findText();">
 <span class="w3-right w3-margin-right w3-tag w3-white w3-border" ><font color="w3-grey" style="font-size:12px;" id="curCount"></font></span>
 </div>
 
@@ -239,6 +291,7 @@ function sendEvent(){
        
     }
     function onError(event) {     alert(event.data);   }
+  
     function send() {
     	
     	 var now = new Date();
@@ -270,22 +323,94 @@ function sendEvent(){
 			  +"<li class='w3-large' style='border:none;' align='right'>"
 		          +"<span class='w3-small'>"+nowText+"</span>&nbsp;"
 		         +"<span class='w3-panel w3-round-large w3-padding w3-right '  style='margin:0; max-width:80%; background: rgba(255, 193, 7, 0.75);'>"
-		          +"<span class='w3-medium'>"+inputMessage.value+"</span></span></li></ul></td></tr></table>";
+		          +"<span class='w3-medium'><pre>"+inputMessage.value+"</pre></span></span></li></ul></td></tr></table>";
           
         
+		 textarea.scrollTop=textarea.scrollHeight;
         
-       
-		          textarea.scrollTop=textarea.scrollHeight;
-        
-       
-             webSocket.send(inputMessage.value.trim());
+         webSocket.send(inputMessage.value.trim());
   			  
-  		
-       
         inputMessage.value = "";
-      
+     
+		
 			
 	}
+
+function checkKey(e){
+    if(!e){ e = window.event; }
+    var code = e.keyCode ? e.keyCode : e.charCode;
+    var shift = e.shiftKey;
+  
+    if(!shift&&(code==13)){ event.preventDefault(); send(); }
+	}
+
+
+	document.onkeypress = checkKey;
+
+
+
+function findText(){
+	//alert(document.getElementById("searchText").value);
+	
+	//window.find(document.getElementById("searchText").value);
+	//document.getElementById("searchText").focus();
+	
+	
+	$("div:contains(document.getElementById('searchText').value)").addClass("redColor");
+	
+	
+	/*  var t1 = $("#searchText").val();
+	  
+	 
+	       var t2 = $("#messageWindow").text();
+	       
+	       t2.select();
+	       var t3= new RegExp(t1,"gi"); 
+	       var new_tex = t2.replace(t3,"<span style='color:red;'>"+t1+"</span>");
+	       $("#messageWindow").html( new_tex ); */
+	  
+	
+}
+
+//preview image 
+
+var imgTarget = $('.preview-image .upload-hidden'); 
+imgTarget.on('change', function(){
+var parent = $(this).parent();
+
+parent.children('.upload-display').remove();
+if(window.FileReader){ 
+//image 파일만
+if (!$(this)[0].files[0].type.match(/image\//)) 
+	return;
+
+var reader = new FileReader(); 
+reader.onload = function(e){
+	var src = e.target.result;
+	
+	
+  
+   
+	parent.prepend('<div class="upload-display" id="upload-display"><div class="upload-thumb-wrap w3-display-container "><img src="'+src+'" class="upload-thumb"></div></div>'); 
+	
+	//document.getElementById('addfilebtn').style.display='none';
+	} 
+
+reader.readAsDataURL($(this)[0].files[0]); 
+} else { 
+	$(this)[0].select();
+	$(this)[0].blur(); 
+	var imgSrc = document.selection.createRange().text; 
+	parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>'); 
+	
+	var img = $(this).siblings('.upload-display').find('img'); 
+	img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
+	
+}
+
+});
+
+
 </script>
 </html>
 
