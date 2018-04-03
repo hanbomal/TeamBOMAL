@@ -20,7 +20,7 @@
 		.formpad {
 			padding: 10% 10% 10% 10%;
 			
-		}
+		} 
 	
 	</style>
 	<script type="text/javascript">
